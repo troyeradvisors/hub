@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hub.Web", "Hub.Web\Hub.Web.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hub.Domain", "Hub.Domain\Hub.Domain.csproj", "{95EEBEFE-3B4E-427C-BA6B-E4DB101FF3FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBase", "..\Libraries\MvcBase\MvcBase.csproj", "{CED231A4-8594-45FD-9611-8E2A97F591B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcBase", "..\Libs\MvcBase\MvcBase.csproj", "{CED231A4-8594-45FD-9611-8E2A97F591B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoInfrastructure", "..\Libraries\RepoInfrastructure\RepoInfrastructure.csproj", "{CBABFA62-32DB-4504-A3DE-66FBDB0632C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoInfrastructure", "..\Libs\RepoInfrastructure\RepoInfrastructure.csproj", "{CBABFA62-32DB-4504-A3DE-66FBDB0632C2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C80B8E56-61FD-4E1E-9E20-73CC4510C831}"
 	ProjectSection(SolutionItems) = preProject

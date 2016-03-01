@@ -26,6 +26,7 @@
     <UpgradeBackupLocation />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -295,11 +296,11 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\MvcBase\MvcBase.csproj">
+    <ProjectReference Include="..\..\Libs\MvcBase\MvcBase.csproj">
       <Project>{ced231a4-8594-45fd-9611-8e2a97f591b1}</Project>
       <Name>MvcBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Libraries\RepoInfrastructure\RepoInfrastructure.csproj">
+    <ProjectReference Include="..\..\Libs\RepoInfrastructure\RepoInfrastructure.csproj">
       <Project>{cbabfa62-32db-4504-a3de-66fbdb0632c2}</Project>
       <Name>RepoInfrastructure</Name>
     </ProjectReference>

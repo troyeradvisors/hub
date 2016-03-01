@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Subscription>
+@{
+	ViewBag.Title = "Services";
+}
+<ul class="detail-list">
+	@foreach (var m in Model) {
+		string path = m.Service.ServiceType.IsDocument ? Url.Action("Index", "Document") : m.URL;
+		<li><a href="@path">
+			<div class="border">
+				<div class="image">
+					<img src="@m.Service.ServiceType.Image" />
+				</div>
+				<div class="details">
+					<div class="title">@m.Name</div>
+					<div class="subtitle">@m.Service.ServiceType.Name</div>
+				</div>
+				<div class="status">Expires: <span>@Html.DisplayFor(mm => m.EndDate)</span></div>
+			</div>
+		</a></li>
+ }
+</ul>
+<script>
+
+	$(".detail-list li").hover(function () { $(this).toggleClass('hover') });
+	$(".detail-list .border:last").css('background', 'none');
+</script>

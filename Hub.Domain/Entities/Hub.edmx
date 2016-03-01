@@ -1,0 +1,640 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HubModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="HubModelStoreContainer">
+          <EntitySet Name="Client" EntityType="HubModel.Store.Client" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClientKey" EntityType="HubModel.Store.ClientKey" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ClientSubscription" EntityType="HubModel.Store.ClientSubscription" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Service" EntityType="HubModel.Store.Service" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ServiceType" EntityType="HubModel.Store.ServiceType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="HubModel.Store.User" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserSubscription" EntityType="HubModel.Store.UserSubscription" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vSubscriptions" EntityType="HubModel.Store.vSubscriptions" store:Type="Views" store:Schema="dbo" store:Name="vSubscriptions">
+            <DefiningQuery>SELECT 
+      [vSubscriptions].[UserID] AS [UserID], 
+      [vSubscriptions].[ClientID] AS [ClientID], 
+      [vSubscriptions].[ServiceID] AS [ServiceID], 
+      [vSubscriptions].[Name] AS [Name], 
+      [vSubscriptions].[URL] AS [URL], 
+      [vSubscriptions].[TypeID] AS [TypeID], 
+      [vSubscriptions].[EndDate] AS [EndDate], 
+      [vSubscriptions].[SubscriptionType] AS [SubscriptionType]
+      FROM [dbo].[vSubscriptions] AS [vSubscriptions]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ClientKey_Client" Association="HubModel.Store.FK_ClientKey_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientKey" EntitySet="ClientKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSubscription_Client" Association="HubModel.Store.FK_ClientSubscription_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientSubscription" EntitySet="ClientSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSubscription_Service" Association="HubModel.Store.FK_ClientSubscription_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="ClientSubscription" EntitySet="ClientSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Service_ServiceType" Association="HubModel.Store.FK_Service_ServiceType">
+            <End Role="ServiceType" EntitySet="ServiceType" />
+            <End Role="Service" EntitySet="Service" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClient_Client" Association="HubModel.Store.FK_UserClient_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSubscription_Service" Association="HubModel.Store.FK_UserSubscription_Service">
+            <End Role="Service" EntitySet="Service" />
+            <End Role="UserSubscription" EntitySet="UserSubscription" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Logo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ClientKey">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="InvalidDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ClientSubscription">
+          <Key>
+            <PropertyRef Name="ClientID" />
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServiceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsDocument" Type="bit" Nullable="false" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+        </EntityType>
+        <EntityType Name="UserSubscription">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Hub.dbo.vSubscriptions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="vSubscriptions">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="SubscriptionType" />
+          </Key>
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="URL" Type="nvarchar(max)" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="SubscriptionType" Type="varchar" Nullable="false" MaxLength="6" />
+        </EntityType>
+        <Association Name="FK_ClientKey_Client">
+          <End Role="Client" Type="HubModel.Store.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientKey" Type="HubModel.Store.ClientKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientKey">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSubscription_Client">
+          <End Role="Client" Type="HubModel.Store.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientSubscription" Type="HubModel.Store.ClientSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientSubscription">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSubscription_Service">
+          <End Role="Service" Type="HubModel.Store.Service" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientSubscription" Type="HubModel.Store.ClientSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientSubscription">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Service_ServiceType">
+          <End Role="ServiceType" Type="HubModel.Store.ServiceType" Multiplicity="1" />
+          <End Role="Service" Type="HubModel.Store.Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClient_Client">
+          <End Role="Client" Type="HubModel.Store.Client" Multiplicity="0..1" />
+          <End Role="User" Type="HubModel.Store.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSubscription_Service">
+          <End Role="Service" Type="HubModel.Store.Service" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSubscription" Type="HubModel.Store.UserSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSubscription">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HubModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="HubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="HubModel.Client" />
+          <EntitySet Name="ClientSubscriptions" EntityType="HubModel.ClientSubscription" />
+          <EntitySet Name="Services" EntityType="HubModel.Service" />
+          <EntitySet Name="Users" EntityType="HubModel.User" />
+          <EntitySet Name="UserSubscriptions" EntityType="HubModel.UserSubscription" />
+          <EntitySet Name="Subscriptions" EntityType="HubModel.Subscription" />
+          <AssociationSet Name="FK_ClientSubscription_Client" Association="HubModel.FK_ClientSubscription_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientSubscription" EntitySet="ClientSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserClient_Client" Association="HubModel.FK_UserClient_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSubscription_Service" Association="HubModel.FK_ClientSubscription_Service">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="ClientSubscription" EntitySet="ClientSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSubscription_Service" Association="HubModel.FK_UserSubscription_Service">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="UserSubscription" EntitySet="UserSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="UserSubscription1" Association="HubModel.UserSubscription1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="ClientSubscription1" Association="HubModel.ClientSubscription1">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="ServiceSubscription" Association="HubModel.ServiceSubscription">
+            <End Role="Service" EntitySet="Services" />
+            <End Role="Subscription" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="UserUserSubscription" Association="HubModel.UserUserSubscription">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserSubscription" EntitySet="UserSubscriptions" />
+          </AssociationSet>
+          <EntitySet Name="ServiceTypes" EntityType="HubModel.ServiceType" />
+          <AssociationSet Name="FK_Service_ServiceType" Association="HubModel.FK_Service_ServiceType">
+            <End Role="ServiceType" EntitySet="ServiceTypes" />
+            <End Role="Service" EntitySet="Services" />
+          </AssociationSet>
+          <EntitySet Name="ClientKeys" EntityType="HubModel.ClientKey" />
+          <AssociationSet Name="FK_ClientKey_Client" Association="HubModel.FK_ClientKey_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientKey" EntitySet="ClientKeys" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Logo" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="HubModel.FK_UserClient_Client" FromRole="Client" ToRole="User" />
+          <NavigationProperty Name="Subscriptions" Relationship="HubModel.ClientSubscription1" FromRole="Client" ToRole="Subscription" />
+          <NavigationProperty Name="ClientKeys" Relationship="HubModel.FK_ClientKey_Client" FromRole="Client" ToRole="ClientKey" />
+        </EntityType>
+        <EntityType Name="ClientSubscription">
+          <Key>
+            <PropertyRef Name="ClientID" />
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client" Relationship="HubModel.FK_ClientSubscription_Client" FromRole="ClientSubscription" ToRole="Client" />
+          <NavigationProperty Name="Service" Relationship="HubModel.FK_ClientSubscription_Service" FromRole="ClientSubscription" ToRole="Service" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="URL" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ClientSubscriptions" Relationship="HubModel.FK_ClientSubscription_Service" FromRole="Service" ToRole="ClientSubscription" />
+          <NavigationProperty Name="UserSubscriptions" Relationship="HubModel.FK_UserSubscription_Service" FromRole="Service" ToRole="UserSubscription" />
+          <NavigationProperty Name="Subscriptions" Relationship="HubModel.ServiceSubscription" FromRole="Service" ToRole="Subscription" />
+          <Property Type="Int32" Name="TypeID" Nullable="false" />
+          <NavigationProperty Name="ServiceType" Relationship="HubModel.FK_Service_ServiceType" FromRole="Service" ToRole="ServiceType" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ClientID" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="HubModel.FK_UserClient_Client" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="UserSubscriptions" Relationship="HubModel.UserUserSubscription" FromRole="User" ToRole="UserSubscription" />
+        </EntityType>
+        <EntityType Name="UserSubscription">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ServiceID" />
+          </Key>
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Service" Relationship="HubModel.FK_UserSubscription_Service" FromRole="UserSubscription" ToRole="Service" />
+          <NavigationProperty Name="User" Relationship="HubModel.UserUserSubscription" FromRole="UserSubscription" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ServiceID" />
+            <PropertyRef Name="TypeID" />
+            <PropertyRef Name="SubscriptionType" />
+          </Key>
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="URL" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="HubModel.UserSubscription1" FromRole="Subscription" ToRole="User" />
+          <Property Type="Int32" Name="ClientID" />
+          <NavigationProperty Name="Client" Relationship="HubModel.ClientSubscription1" FromRole="Subscription" ToRole="Client" />
+          <Property Type="Int32" Name="ServiceID" Nullable="false" />
+          <NavigationProperty Name="Service" Relationship="HubModel.ServiceSubscription" FromRole="Subscription" ToRole="Service" />
+          <Property Type="Int32" Name="TypeID" Nullable="false" />
+          <Property Type="String" Name="SubscriptionType" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_ClientSubscription_Client">
+          <End Role="Client" Type="HubModel.Client" Multiplicity="1" />
+          <End Role="ClientSubscription" Type="HubModel.ClientSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientSubscription">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserClient_Client">
+          <End Role="Client" Type="HubModel.Client" Multiplicity="0..1" />
+          <End Role="User" Type="HubModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSubscription_Service">
+          <End Role="Service" Type="HubModel.Service" Multiplicity="1" />
+          <End Role="ClientSubscription" Type="HubModel.ClientSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientSubscription">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSubscription_Service">
+          <End Role="Service" Type="HubModel.Service" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSubscription" Type="HubModel.UserSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSubscription">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserSubscription1">
+          <End Type="HubModel.User" Role="User" Multiplicity="1" />
+          <End Type="HubModel.Subscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClientSubscription1">
+          <End Type="HubModel.Client" Role="Client" Multiplicity="0..1" />
+          <End Type="HubModel.Subscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ServiceSubscription">
+          <End Type="HubModel.Service" Role="Service" Multiplicity="1" />
+          <End Type="HubModel.Subscription" Role="Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Subscription">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserUserSubscription">
+          <End Type="HubModel.User" Role="User" Multiplicity="1" />
+          <End Type="HubModel.UserSubscription" Role="UserSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSubscription">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ServiceType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Services" Relationship="HubModel.FK_Service_ServiceType" FromRole="ServiceType" ToRole="Service" />
+          <Property Type="Boolean" Name="IsDocument" Nullable="false" />
+          <Property Type="String" Name="Image" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Service_ServiceType">
+          <End Type="HubModel.ServiceType" Role="ServiceType" Multiplicity="1" />
+          <End Type="HubModel.Service" Role="Service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Service">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ClientKey">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Type="Guid" Name="Key" Nullable="false" />
+          <Property Type="Int32" Name="ClientID" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="InvalidDate" Precision="3" />
+          <NavigationProperty Name="Client" Relationship="HubModel.FK_ClientKey_Client" FromRole="ClientKey" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_ClientKey_Client">
+          <End Type="HubModel.Client" Role="Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HubModel.ClientKey" Role="ClientKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientKey">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HubModelStoreContainer" CdmEntityContainer="HubEntities">
+          <EntitySetMapping Name="Clients"><EntityTypeMapping TypeName="HubModel.Client"><MappingFragment StoreEntitySet="Client">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="Logo" ColumnName="Logo" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ClientSubscriptions"><EntityTypeMapping TypeName="HubModel.ClientSubscription"><MappingFragment StoreEntitySet="ClientSubscription">
+            <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+            <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Services"><EntityTypeMapping TypeName="HubModel.Service"><MappingFragment StoreEntitySet="Service">
+            <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="URL" ColumnName="URL" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="HubModel.User"><MappingFragment StoreEntitySet="User">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+            <ScalarProperty Name="LastName" ColumnName="LastName" />
+            <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="UserSubscriptions"><EntityTypeMapping TypeName="HubModel.UserSubscription"><MappingFragment StoreEntitySet="UserSubscription">
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions"><EntityTypeMapping TypeName="HubModel.Subscription"><MappingFragment StoreEntitySet="vSubscriptions">
+                <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+            <ScalarProperty Name="URL" ColumnName="URL" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ServiceTypes">
+            <EntityTypeMapping TypeName="HubModel.ServiceType">
+              <MappingFragment StoreEntitySet="ServiceType">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="IsDocument" ColumnName="IsDocument" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientKeys">
+            <EntityTypeMapping TypeName="HubModel.ClientKey">
+              <MappingFragment StoreEntitySet="ClientKey">
+                <ScalarProperty Name="InvalidDate" ColumnName="InvalidDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Hub">
+        <EntityTypeShape EntityType="HubModel.Client" Width="1.5" PointX="5.125" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="HubModel.ClientSubscription" Width="1.5" PointX="2.75" PointY="6.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="HubModel.Service" Width="1.5" PointX="5.625" PointY="9.375" Height="1.9802864583333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="HubModel.User" Width="1.5" PointX="8.375" PointY="0.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="HubModel.UserSubscription" Width="1.5" PointX="10.125" PointY="7.125" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="HubModel.Subscription" Width="1.5" PointX="6.375" PointY="3.875" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="HubModel.FK_ClientSubscription_Client" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.2500000000000004" PointY="3.047587890625" />
+          <ConnectorPoint PointX="2.625" PointY="3.4225878906249996" />
+          <ConnectorPoint PointX="2.625" PointY="5.1126810364583335" />
+          <ConnectorPoint PointX="3.375" PointY="5.1126810364583335" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.FK_UserClient_Client" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.8338907291666668" />
+          <ConnectorPoint PointX="3" PointY="1.8338907291666668" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.FK_ClientSubscription_Service" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.4313405182291667" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="4.4313405182291659" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="4.4313405182291667" />
+          <ConnectorPoint PointX="3.375" PointY="4.4313405182291667" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.FK_UserSubscription_Service" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="6.047587890625" />
+          <ConnectorPoint PointX="1.5" PointY="8.1151432291666659" />
+          <ConnectorPoint PointX="3.875" PointY="8.1151432291666659" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.UserSubscription1">
+          <ConnectorPoint PointX="4.5" PointY="2.5285953776041667" />
+          <ConnectorPoint PointX="5.072916666666667" PointY="2.5285953776041663" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="2.5285953776041667" />
+          <ConnectorPoint PointX="10.5" PointY="2.5285953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.ClientSubscription1" >
+          <ConnectorPoint PointX="1.4687480000000002" PointY="3.047587890625" />
+          <ConnectorPoint PointX="1.4687480000000002" PointY="3.5571907552083335" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="3.5571907552083331" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="3.5571907552083335" />
+          <ConnectorPoint PointX="5.072916666666667" PointY="3.5571907552083331" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="3.5571907552083335" />
+          <ConnectorPoint PointX="10.125" PointY="3.5571907552083335" />
+          <ConnectorPoint PointX="10.125" PointY="3.5452957825520839" />
+          <ConnectorPoint PointX="10.5" PointY="3.5452957825520839" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.ServiceSubscription" >
+          <ConnectorPoint PointX="2.25" PointY="5.9514346744791657" />
+          <ConnectorPoint PointX="5.072916666666667" PointY="5.9514346744791649" />
+          <ConnectorPoint PointX="5.239583333333333" PointY="5.9514346744791657" />
+          <ConnectorPoint PointX="11.25" PointY="5.9514346744791657" />
+          <ConnectorPoint PointX="11.25" PointY="4.4994921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="HubModel.UserUserSubscription" >
+          <ConnectorPoint PointX="4.5" PointY="1.6080451888020826" />
+          <ConnectorPoint PointX="5.15625" PointY="1.6080451888020826" />
+          <ConnectorPoint PointX="5.15625" PointY="7.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="HubModel.ServiceType" Width="1.5" PointX="9.125" PointY="9.75" />
+        <AssociationConnector Association="HubModel.FK_Service_ServiceType" />
+        <EntityTypeShape EntityType="HubModel.ClientKey" Width="1.5" PointX="2.875" PointY="0.875" />
+        <AssociationConnector Association="HubModel.FK_ClientKey_Client" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,6 @@
+﻿.ui-widget { font-size: .9em; line-height:  1.3em;}
+    .ui-widget th { color: black; }
+.ui-widget-header { line-height: .9em; }
+.ui-datepicker td a { text-align: center; }
+.ui-timepicker-table .ui-timepicker-title { line-height: 1.3em; }
+#ui-timepicker-div { padding: 0em;  }

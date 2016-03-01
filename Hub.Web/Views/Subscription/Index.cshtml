@@ -1,0 +1,84 @@
+
+
+@model SubscriptionModel
+@{
+    ViewBag.Title = "Subscriptions";
+}
+<h1>Subscriptions</h1>
+	@if (ViewBag.CurrentUser == null && ViewBag.currentclient == null)
+	{
+        <p>Please select a user or client to add subscriptions. </p>
+	 }
+	else
+	{	 
+		<p>
+		Add Subscriptions<br />
+		@if (ViewBag.CurrentUser != null)
+		{
+			@Html.ActionLink((ViewBag.CurrentUser as User).FullName, "CreateUser", new { id = (ViewBag.CurrentUser as User).ID }) <br />
+		}
+		@if (ViewBag.CurrentClient != null)
+		{
+			@Html.ActionLink((ViewBag.CurrentClient as Client).Name, "CreateClient", new { id = (ViewBag.CurrentClient as Client).ID })
+		}
+		</p>
+	 }
+
+@*@using (Html.BeginForm())
+{
+    @Html.DropDownList("UserID", (SelectList)ViewBag.Users, "All")
+    <input type="submit" value="Select" />
+}
+@using (Html.BeginForm())
+{ 
+    @Html.DropDownList("ClientID", (SelectList)ViewBag.Clients, "All") 
+    <input type="submit" value="Select" /> 
+}
+<br />*@
+<table>
+    <tr>
+        <th>Client </th>
+        <th>Name </th>
+        <th>Service </th>
+        <th>End Date </th>
+		<th>From</th>
+    </tr>
+    @foreach (var item in Model.Subscriptions)
+    {
+        <tr>
+            <td>
+				@if (item.Client != null) {
+					@Html.ActionLink(item.Client.Name, "Index", new { clientID = item.ClientID  })
+				}
+            </td>
+            <td>
+                @Html.ActionLink(item.User.LastFirstName, "Index", new { clientID = item.ClientID, userID = item.UserID })
+            </td>
+            <td>@item.Name</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+			<td>@item.SubscriptionType</td>
+            <td>
+                @{ 
+                    
+                    if (item.SubscriptionType == "User")
+                    {
+                        var key = new {  userID=item.UserID, serviceID = item.ServiceID};   
+                        @Html.ActionLink("Edit", "EditUser", key) @:| 
+                        @Html.ActionLink("Delete", "DeleteUser", key, new { @class = "delete" }) 
+                    }
+                    else
+                    {
+                        var key = new {  clientID=item.ClientID, serviceID = item.ServiceID};   
+                        @Html.ActionLink("Edit", "EditClient",key) @:| 
+                        @Html.ActionLink("Delete", "DeleteClient", key, new { @class = "delete" }) 
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.ClientID != null || Model.UserID != null){
+	@Html.ActionLink("Reset", "Index")
+}

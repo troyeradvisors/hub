@@ -1,0 +1,12 @@
+@using Hub.Domain.Repositories;
+
+<div id="login" >
+@if(Request.IsAuthenticated){
+	<a href="@Url.Action("Logout", "Profile")">
+    <span>@(Hub.Domain.Entities.User.Current.FullName)</span>
+	</a>
+}
+else {
+    <a href="@Url.Action("Login", "Profile")"><span>Login</span></a>
+}
+</div>

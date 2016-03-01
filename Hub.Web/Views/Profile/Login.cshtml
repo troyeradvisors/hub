@@ -1,0 +1,30 @@
+
+
+@model Hub.Web.Models.LogOnModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h1>Log <Span>In</Span></h1>
+
+@Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+
+@using (Html.BeginForm()) {
+
+            <div class="editor-field">
+                @Html.EditorFor(m => m.UserName)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(m => m.Password)
+            </div>
+
+            <div class="editor-label">
+                @Html.EditorFor(m => m.Save)
+                @Html.LabelFor(m => m.Save)
+            </div>
+            <div>
+                <input type="submit" value="Login" />  <span style="margin-left: 6px;">@Html.ActionLink("Register", "Register", "ClientKey")</span>
+            </div>
+}
+

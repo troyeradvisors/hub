@@ -1,0 +1,34 @@
+@model ClientSubscription
+
+@{
+    ViewBag.Title = "Edit Client Subscription";
+}
+
+<h1>Edit <span>Client Subscription</span></h1>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.ClientID)
+
+        @Html.HiddenFor(model => model.ServiceID)
+        <div class="editor-field">
+            @Html.DisplayFor(model => model.Client.Name)
+        </div>
+
+        <div class="editor-field">
+        @Html.DisplayFor(model => model.Service.Name)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndDate)
+        </div>
+    
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back", "Index", new {ClientID = Model.ClientID))
+</div>

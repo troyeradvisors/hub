@@ -1,0 +1,68 @@
+@model Hub.Domain.Entities.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h1>Edit <span>User</span></h1>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ClientID", "")
+            @Html.ValidationMessageFor(model => model.ClientID)
+        </div>
+
+	
+		<div class="editor-field">
+            @Html.ListBoxFor(m=>m.Roles, (SelectList) ViewBag.RoleList)
+            @Html.ValidationMessageFor(m => m.Roles)
+        </div>
+	
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+}
+
+<h1>Change <span>Password</span></h1>
+@using (Html.BeginForm("UpdatePassword", "User"))
+{
+	@Html.ValidationSummary(true)
+	
+	@Html.Hidden("Pass.UserID")
+	<div class="editor-field">
+		@Html.Editor("Pass.NewPassword")
+		@Html.ValidationMessage("Pass.NewPassword")
+	</div>
+
+	<div class="editor-field">
+		@Html.Editor("Pass.ConfirmPassword")
+		@Html.ValidationMessage("Pass.ConfirmPassword")
+	</div>
+
+
+	<p>
+		<input type="submit" value="Save" />
+	</p>
+}
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,50 @@
+
+@model UserModel
+
+@{
+    ViewBag.Title = "Account Creation";
+}
+
+<h1>Create <span>Account</span></h1>
+
+@using (Html.BeginForm())
+{
+    <div>
+    
+		<div>@Html.ValidationSummary(true)</div>
+
+        <div class="editor-field">
+			@Html.TextBox("Key", null, new { data_val="true", placeholder = "Unique Key", data_val_required = "The Key field is required." })
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.User.Email)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.User.FirstName)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.User.LastName)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.Password)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(m => m.ConfirmPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </div>
+
+        <p>
+            <input type="submit" value="Register" />
+        </p>
+    </div>
+    
+}
+
+<div>
+    @Html.ActionLink("Back to Login", "Login", "Profile")
+</div>

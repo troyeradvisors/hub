@@ -1,0 +1,48 @@
+@model IEnumerable<User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h1>Users</h1>
+
+<p>
+    @Html.ActionLink("Create", "Register")
+</p>
+<table>
+    <tr>
+        <th>
+            Client
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Email
+        </th>
+		<th>Roles</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Client.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastFirstName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>        
+		<td>@string.Join(", ", item.Roles)</td>
+		<td>
+            @Html.ActionLink("Subscriptions", "Index", "Subscription", new { userID = item.ID }, null) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "delete" })
+        </td>
+    </tr>
+}
+
+</table>

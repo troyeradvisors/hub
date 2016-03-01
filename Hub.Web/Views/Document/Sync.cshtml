@@ -1,0 +1,63 @@
+﻿@if (false)
+{<script src="@Url.Content("~/Content/Scripts/Base/jquery-1.7.1-vsdoc.js")" type="text/javascript" ></script> <script src="@Url.Content("~/Content/Scripts/Base/jquery.validate-vsdoc.js")" type="text/javascript" ></script>}
+@using System.IO;
+@model Hub.Web.Models.Documents
+@{
+	ViewBag.Title = "Sync";
+	ViewBag.Counter = 0;
+}
+<h1>Sync <span>Services</span></h1>
+@helper GenerateDirectoryStructure(string id, List<string> files, Func<string, List<string>> navigator)
+{
+	<ul>
+		@foreach (var dir in files)
+  {
+	  int counter = ViewBag.Counter++;
+	  string name = id + counter;
+			<li>@Html.Hidden(id+"Path", dir) @Html.CheckBox(id, new { id = name }) @Html.Label(name, Path.GetFileName(dir))
+				@GenerateDirectoryStructure(id, navigator(dir), navigator)
+			</li>
+		}
+	</ul>
+}
+@if (Model.UnusedDirectories.Count() == 0 && Model.MissingDirectories.Count() == 0)
+{
+	<h3>All directories in sync!</h3>
+}
+else
+{
+	using (Html.BeginForm())
+	{
+	
+		<h5>Delete</h5> 
+        <p>Found the following services and service types missing a corresponding physical directory. <br />
+        Note: Any services removed that clients or users are subscribed to will be implicitly deleted. </p>
+	<div class="delete">	
+        @GenerateDirectoryStructure("Delete", Model.NavigateMissing(), x => Model.NavigateMissing(x))
+	</div>
+
+		<h5>Create</h5>
+        <p>Found the following physical directories for which services and service types do not exist. <br />
+        Note: Select which services and services types to generate to match its underlying physical directory. </p>
+	<div class="create">
+		@{ViewBag.Counter = 0;}
+		@GenerateDirectoryStructure("Create", Model.NavigateUnused(), x => Model.NavigateUnused(x))
+	</div>
+	<input type="submit" value="Update" />
+	}
+}
+<style>
+	.delete { color: #ffd7d7; }
+	.create { color: #d6ffe6; }
+	.create ul, .delete ul { list-style-type: none; margin-left: 2em; }
+</style>
+<script>
+	$("input[type='checkbox']").change(function () {
+		var checked = $(this).attr("checked");
+		$(this).closest("li").find("input[type='checkbox']").each(function () {
+			if (checked) $(this).attr("checked", "checked");
+			else $(this).removeAttr("checked");
+		});
+	});
+
+</script>

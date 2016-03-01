@@ -1,0 +1,34 @@
+﻿@model Hub.Domain.Entities.Service
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h1>Edit <span>Service</span></h1>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.TypeID, (SelectList)ViewBag.TypeList)
+            @Html.ValidationMessageFor(model => model.TypeID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.URL)
+            @Html.ValidationMessageFor(model => model.URL)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

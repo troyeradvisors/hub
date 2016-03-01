@@ -1,0 +1,26 @@
+﻿@model Documents
+
+@{
+    ViewBag.Title = "Documents";
+}
+
+<h1>Documents</h1>
+
+
+
+@helper GenerateDirectoryStructure(Documents.Result files)
+{
+    <ul>
+		@foreach (var file in files.Files)
+		{
+			<li> @Html.ActionLink(@file.Name, "Download", new { path = @file.FullName } ) </li>
+		}
+		@foreach (var dir in files.Directories)
+        {
+			<li>@dir.Name @GenerateDirectoryStructure(Model.FindAllowedFiles(dir, files.IsService))</li>
+        }
+
+    </ul>
+}
+
+@GenerateDirectoryStructure(Model.FindAllowedFiles())

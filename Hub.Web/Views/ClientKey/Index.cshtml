@@ -1,0 +1,22 @@
+﻿
+@model ClientKeyModel
+@{
+    ViewBag.Title = "Key Generator";
+}
+
+<h1>Generate <span>Key</span></h1>
+
+@using (Html.BeginForm())
+{
+	<div>@Html.DropDownListFor(e=>e.ClientID, Model.SelectClients(Model.ClientID), "")</div>
+	<div>@Html.EditorFor(e => e.Count)</div>
+	<div>@Html.EditorFor(e => e.InvalidDate)</div>
+    <div><input type="submit" value="Generate" /></div>
+	<br />
+}
+
+@Html.TextArea("Keys", string.Join("\r\n", Model.Keys), new { @readonly=""})
+
+<style>
+	textarea { width: 300px; height: 200px; }
+</style>

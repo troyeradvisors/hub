@@ -1,0 +1,367 @@
+﻿
+
+
+
+/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+
+/* Reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, caption { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; background: transparent; }
+
+
+/* Template styling
+* Core/Backgrounds */
+body { min-width: 960px; background: url(images/bg-noise.jpg) repeat; font-family: Arial, Helvetica, sans-serif; }
+
+#bg-bright { background: url(images/bg-bright.jpg) no-repeat scroll 50% 0; min-height: 1200px; }
+
+#bg-header { background: #121212 url(images/bg_head.jpg) no-repeat bottom; }
+
+#bg-bar { background: url(images/bg-noise.jpg); font-size: 11px; height: 10px; }
+
+header { height: 135px; }
+
+.content { margin: 0 auto; width: 960px; }
+
+header h1, #header h1 { font-weight: bold; padding: 5px 0; margin: 0; color: #fff; border: none; line-height: 2em; font-size: 32px !important; text-shadow: 1px 1px 2px #111; }
+
+#main { padding: 30px 30px 15px 30px; background: none; margin: 0 auto; }
+
+footer { text-align: right; margin: 80px 0px; }
+    footer .content { padding: 5px 100px 5px 0px; color: #555; text-align: right; background: url(Images/footer-top-line.png) no-repeat top; }
+ 
+.hover { background: rgba(0,0,0,.1); }
+    
+       
+
+/*.copyright-block { float: right; padding: 25px; color: #999; height: 50px; }*/
+
+
+
+a { text-decoration: none; outline: none; color: #F1BD1D; font-weight: bold; }
+    a:hover { color: white; }
+
+header, footer, nav, section { display: block; }
+::selection, ::-moz-selection { background: #777; }
+
+/* Typography */
+
+.font-family-optima { font-family: Optima, Lucida, 'MgOpen Cosmetica', 'Lucida Sans Unicode', sans-serif; }
+.font-family-geneva { font-family: Geneva, Tahoma, "Nimbus Sans L", sans-serif; }
+.font-family-helvetica { font-family: Arial, Helvetica, FreeSans, sans-serif; }
+.font-family-lucida { font-family: "Lucida Grande",Helvetica,Verdana,sans-serif; }
+.font-family-georgia { font-family: Georgia, sans-serif; }
+.font-family-trebuchet { font-family: "Trebuchet MS", sans-serif; }
+.font-family-palatino { font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", Times, serif; }
+
+body { font-size: 12px; line-height: 1.7em; color: #ccc; }
+    body.font-xlarge { font-size: 15px; line-height: 1.7em; }
+    body.font-large { font-size: 14px; line-height: 1.7em; }
+    body.font-default { font-size: 12px; line-height: 1.7em; }
+    body.font-small { font-size: 11px; line-height: 1.7em; }
+    body.font-xsmall { font-size: 10px; line-height: 1.7em; }
+form { margin: 0; padding: 0; }
+p { margin: 0 0 1em 0; }
+ul { margin: 0 0 0 2em; }
+h1, h2, h3, h4, h5 { margin: 15px 0; line-height: 1.1em; color: #fff; }
+h1 { font-size: 260%; }
+h2 { font-size: 200%; }
+h3 { font-size: 175%; }
+h4 { font-size: 120%; }
+h5 { font-size: 120%; }
+h6 { line-height: 1.3em; margin: 10px 0; }
+
+h1 { background: url(images/module_bg_line.png) repeat-x bottom; margin-bottom: 40px; text-transform: uppercase; line-height: 30px; height: 30px; padding: 0px 20px 2px 0px; font-size: 12px; text-shadow: #111 1px 1px 1px; font-weight: bold; }
+    h1 span { color: #F1BD1D; }
+
+
+
+/* TAB MENU   
+----------------------------------------------------------*/
+
+header { position: relative; }
+    header ul.menu { margin: 0 0 10px 0; list-style: none; position: absolute; bottom: 0; right: 0; text-transform: uppercase; font-weight: bold; line-height: 30px; height: 30px; display: block; }
+        header ul.menu li { float: left; padding: 0 15px; background: url(images/menu-separator.png) no-repeat right; }
+            header ul.menu li > a { color: #aaa; text-shadow: #000 1px 1px 0; line-height: 30px; display: block; font-size: 11px; cursor: pointer; position: relative; }
+            header ul.menu li:last-child { background: none; }
+            header ul.menu li > a.current { color: white; text-shadow: #000 1px 1px 0; background: url(images/menu-active.png) no-repeat center 37px; }
+            header ul.menu li:hover > a { color: #fff; text-shadow: #000 1px 1px 0; }
+
+ul.detail-list { margin: 0px; list-style: none; }
+    ul.detail-list a { font-weight: normal; color: inherit; }
+    ul.detail-list img { float: left; max-height: 40px; margin-right: 10px; margin-top: 7px; }
+    ul.detail-list .details { float: left; margin-top: 7px; }
+    ul.detail-list .border { background: url(images/module_bg_line.png) repeat-x bottom; height: 50px; padding: 10px 0px; }
+    ul.detail-list li { cursor: pointer; }
+    ul.detail-list .title { color: white; font-size: 120%; font-weight: bold; }
+    ul.detail-list .subtitle { }
+    ul.detail-list .status { margin: 23px 10px 0px 0px; }
+
+#login { float: right; margin-top: 5px; }
+    #login a { background: url(images/login-icon.png) no-repeat left 0; color: #666; font-weight: normal; }
+        #login a:hover { background: url(images/login-icon-hover.png) no-repeat left 0px; color: white; }
+    #login span { margin-left: 15px; text-align: right; }
+
+#logo { height: 50px; float: left; margin-top: 30px; }
+
+.status { float: right; color: #888; }
+    .status span { color: #aaa; }
+
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset { margin: 0 0 1.5em 0; }
+
+/*legend { font-size: 1.2em; font-weight: bold; }*/
+
+::-webkit-input-placeholder { color: #444; }
+:-moz-placeholder { color: #444; }
+
+.display-label, .editor-label { font-weight: bold;  }
+
+form div {  margin: 0 0 1em 0; }
+
+textarea, input, select { min-width: 100px; border: 1px solid #5c5c5c; font: inherit; background: rgba(0,0,0,.2); padding: .25em .5em; color: #aaa; text-align: left; outline: none; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
+    textarea:hover, input:hover, select:hover { background: rgba(0,0,0,.15); }
+    textarea:focus, input:focus, select:focus { border: 1px solid #679ED2; }
+    select option { background: #333; }
+select { -webkit-appearance: none; -moz-appearance: none; }
+        select[multiple] option { background: none; }
+
+textarea { min-height: 75px; }
+
+input[type="submit"] { min-width: 0px; text-align: center; background: rgba(0,0,0,.4); font-size: 1.2em; cursor: pointer; border: 1px solid #333; }
+    input[type="submit"]:hover { background: rgba(0,0,0,.3); }
+
+input[type="checkbox"] { min-width:  0px; }
+
+/* TABLE
+----------------------------------------------------------*/
+
+table img { height: 50px; }
+table { margin-bottom: 15px; }
+    table td { padding: 2px 8px; border: 0px; }
+        table td a { color:  inherit; font-weight: normal;}
+            table td a:hover {  color:  white; }
+    table th { color: white; }
+
+/* MISC  
+----------------------------------------------------------*/
+.clear { clear: both; }
+
+.error { color: Red; }
+
+div#title { display: block; float: left; text-align: left; }
+
+/*#logindisplay { font-size: 1.1em; display: block; text-align: right; margin: 10px; color: White; }*/
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+
+.field-validation-error { color: #FF5447!important; font-weight: bold; }
+
+.field-validation-valid { display: none; }
+
+.input-validation-error { border: 1px solid #FF5447!important; color: #FF5447!important; }
+
+.validation-summary-errors { color: #FF5447!important; font-weight: bold; margin-bottom: 1em; }
+
+.validation-summary-valid { display: none; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************
+*   Mobile Styles   *
+********************/
+@media only screen and (max-width: 850px) {
+
+    /* header
+    ----------------------------------------------------------*/
+    header .float-left,
+    header .float-right {
+        float: none;
+    }
+
+    /* logo */
+    header .site-title {
+        margin: 10px;
+        text-align: center;
+    }
+
+    /* login */
+    #login {
+        font-size: .85em;
+        margin: 0 0 12px;
+        text-align: center;
+    }
+
+        #login ul {
+            margin: 5px 0;
+            padding: 0;
+        }
+
+        #login li {
+            display: inline;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #login a {
+            background: none;
+            color: #999;
+            font-weight: 600;
+            margin: 2px;
+            padding: 0;
+        }
+
+        #login a:hover {
+            color: #333;
+        }
+
+    /* menu */
+    nav {
+        margin-bottom: 5px;
+    }
+
+    ul#menu {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+        ul#menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+
+    /* main layout
+    ----------------------------------------------------------*/
+    .main-content,
+    .featured + .main-content {
+        background-position: 10px 0;
+    }
+
+    .content-wrapper {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .featured .content-wrapper {
+        padding: 10px;
+    }
+
+    /* page content */
+    article, aside {
+        float: none;
+        width: 100%;
+    }
+
+    /* ordered list */
+    ol.round {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+        ol.round li {
+            padding-left: 10px;
+            margin: 25px 0;
+        }
+
+            ol.round li.one,
+            ol.round li.two,
+            ol.round li.three {
+                background: none;
+            }
+
+     /* features */
+     section.feature {
+        float: none;
+        padding: 10px;
+        width: auto;
+     }
+
+        section.feature img {
+            color: #999;
+            content: attr(alt);
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+    /* forms */
+    fieldset input[type="text"],
+    fieldset input[type="password"] {
+        width: 90%;
+    }
+
+    /* login page */
+    #loginForm {
+        border-right: none;
+        float: none;
+        width: auto;
+    }
+
+        #loginForm .validation-error {
+            display: block;
+            margin-left: 15px;
+        }
+
+    #socialLoginForm {
+        margin-left: 0;
+        float: none;
+        width: auto;
+    }
+
+    /* footer
+    ----------------------------------------------------------*/
+    footer .float-left,
+    footer .float-right {
+        float: none;
+    }
+
+    footer {
+        text-align: center;
+        height: auto;
+        padding: 10px 0;
+    }
+
+        footer p {
+            margin: 0;
+        }
+
+        ul#social {
+            padding: 0;
+            margin: 0;
+        }
+
+        a.facebook, a.twitter {
+            background: none;
+            display: inline;
+            float: none;
+            height: auto;
+            padding-left: 0;
+            text-indent: 0;
+            width: auto;
+        }
+}

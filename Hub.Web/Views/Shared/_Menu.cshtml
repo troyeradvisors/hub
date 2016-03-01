@@ -1,0 +1,25 @@
+﻿
+<nav>
+	<ul class="menu">
+		@if (Request.IsAuthenticated)
+		{
+			<li>@Html.MenuLink("Services", "Index", "Home")</li>
+			<li>@Html.MenuLink("Documents", "Index", "Document")</li>
+		
+			if (!Roles.IsUserInRole("Demo"))
+			{
+				<li>@Html.MenuLink("Profile", "Index", "Profile")</li>
+			}
+			if (Roles.IsUserInRole("Admin"))
+			{
+				<li>@Html.MenuLink("User", "Index", "User")</li>
+				<li>@Html.MenuLink("Subscription", "Index", "Subscription")</li>
+				<li>@Html.MenuLink("Client", "Index", "Client")</li>
+				<li>@Html.MenuLink("Service", "Index", "Service")</li>
+				<li>@Html.MenuLink("Type", "Index", "ServiceType")</li>
+				<li>@Html.MenuLink("Key", "Index", "ClientKey")</li>
+				<li>@Html.MenuLink("Sync", "Sync", "Document")</li>
+			}
+		 }
+	</ul>
+</nav>

@@ -1,0 +1,52 @@
+@{
+	ViewBag.Title = "Profile";
+}
+<h1>Edit <span>Profile</span></h1>
+@using (Html.BeginForm("UpdateProfile", "Profile"))
+{
+	@Html.Hidden("User.ID")
+	@Html.Hidden("User.ClientID")
+	<div class="display-field">
+		@Html.Display("User.Client.Name")
+	</div>
+	<div class="editor-field">
+		@Html.Editor("User.Email")
+		@Html.ValidationMessage("User.Email")
+	</div>
+	<div class="editor-field">
+		@Html.Editor("User.FirstName")
+		@Html.ValidationMessage("User.FirstName")
+	</div>
+	<div class="editor-field">
+		@Html.Editor("User.LastName")
+		@Html.ValidationMessage("User.LastName")
+	</div>
+	<p>
+		<input type="submit" value="Save" />
+	</p>
+}
+<h1>Change <span>Password</span></h1>
+@using (Html.BeginForm("UpdatePassword", "Profile"))
+{
+	@Html.ValidationSummary(true)
+
+	<div class="editor-field">
+		@Html.Editor("Pass.OldPassword")
+		@Html.ValidationMessage("Pass.OldPassword")
+	</div>
+	
+	<div class="editor-field">
+		@Html.Editor("Pass.NewPassword")
+		@Html.ValidationMessage("Pass.NewPassword")
+	</div>
+
+	<div class="editor-field">
+		@Html.Editor("Pass.ConfirmPassword")
+		@Html.ValidationMessage("Pass.ConfirmPassword")
+	</div>
+
+
+	<p>
+		<input type="submit" value="Save" />
+	</p>
+}

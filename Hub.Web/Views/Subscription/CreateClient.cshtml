@@ -1,0 +1,36 @@
+﻿@model SubscriptionModel
+
+@{
+    ViewBag.Title = "Create Client Subscription";
+}
+
+<h1>Subscribe <span>Client</span></h1>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+        @Html.Hidden("ClientID", Model.ClientID)
+
+        <div class="editor-field">
+            @Html.HiddenFor(model => model.ClientName)
+            @Html.DisplayFor(model => model.ClientName)
+        </div>
+
+        <div class="editor-field">
+            @Html.DropDownList("ServiceID", (SelectList)ViewBag.Services, "")
+            @Html.ValidationMessage("ServiceID")
+        </div>
+
+        <div class="editor-field">
+            @Html.Editor("EndDate")
+            @Html.ValidationMessage("EndDate")
+        </div>
+    
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
